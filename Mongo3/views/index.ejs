@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini WhatsApp</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<h3>All Chats!</h3>
+<form method="GET" action="/chats/new">
+    <button> New Chat </button>
+</form>
+    <% for(let chat of chats) { %>
+        <div class="chatbox">
+            <p>From:<i> <%= chat.from %> </i>
+            </p>
+            <div class="msg">
+                <p> Msg: <%= chat.msg %></p>
+                <form method="GET" action="/chat/<%= chat.id%>/Edit">
+                <button>Edit</button>
+            </form>
+            <form method="POST" action="/chats/<%= chat.id%>?_method=DELETE">
+                <button>Delete</button>
+            </form>
+            </div>
+            <p>To:<i> <%= chat.to %> </i> 
+            </p>
+            <!--Important for day and dated .toString()-for conversion in array,split for accessing index array
+            .slice() for getting the value together And joining them again  by (" ")--->
+            <p>Time: <%= chat.created_at.toString().split(" ")[4] %></p>
+            <p>Date: <%= chat.created_at.toString().split(" ").slice(0,4).join("-") %></p>
+            <br>
+            <hr />
+        </div>
+        <hr />
+        <% } %>
+</body>
+</html>
